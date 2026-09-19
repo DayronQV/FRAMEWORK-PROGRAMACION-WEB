@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import dashboardIcon from "../img/dashboard.png";
+import catalogoIcon from "../img/catalogar.png";
+import miRedIcon from "../img/mi-red.png";
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -9,17 +12,17 @@ const menuItems = [
   {
     to: "/",
     label: "Dashboard",
-    icon: "M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z",
+    icon: dashboardIcon,
   },
   {
     to: "/catalogo",
     label: "Catálogo",
-    icon: "M4 3h6a2 2 0 0 1 2 2v16a3 3 0 0 0-3-3H3V3h1Z M20 3h-6a2 2 0 0 0-2 2v16a3 3 0 0 1 3-3h6V3h-1Z",
+    icon: catalogoIcon,
   },
   {
     to: "/mi-red",
     label: "Mi Red",
-    icon: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0 M22 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75",
+    icon: miRedIcon,
   },
 ];
 
@@ -85,18 +88,12 @@ const Sidebar = ({ isCollapsed, onNavigate }: SidebarProps) => {
               isCollapsed ? "justify-center" : "gap-3"
             } rounded p-3 transition-colors hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-indigo-400`}
           >
-            <svg
+            <img
               aria-hidden="true"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-6 w-6 shrink-0"
-            >
-              <path d={icon} />
-            </svg>
+              src={icon}
+              alt=""
+              className="h-8 w-8 shrink-0 object-contain"
+            />
             {!isCollapsed && <span>{label}</span>}
           </Link>
         ))}
