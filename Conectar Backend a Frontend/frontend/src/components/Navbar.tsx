@@ -61,24 +61,27 @@ const Navbar = ({ toggleSidebar }: NavbarProps) => {
             {user?.rol}
           </span>
 
-          <div className="relative group cursor-pointer pb-2">
-            <div className="w-8 h-8 rounded-full bg-slate-200 overflow-hidden border border-slate-300 flex items-center justify-center">
+          <details className="relative">
+            <summary
+              aria-label="Menú de usuario"
+              className="w-8 h-8 cursor-pointer list-none rounded-full bg-slate-200 overflow-hidden border border-slate-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500 [&::-webkit-details-marker]:hidden"
+            >
               <img
                 src="https://fastly.picsum.photos/id/64/4326/2884.jpg?hmac=9_SzX666YRpR_fOyYStXpfSiJ_edO3ghlSRnH2w09Kg"
                 alt="Avatar del usuario"
                 className="w-full h-full object-cover"
               />
-            </div>
+            </summary>
 
-            <div className="absolute right-0 top-full mt-1 w-36 bg-white border border-slate-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <div className="absolute right-0 top-full mt-2 w-40 bg-white border border-slate-200 rounded-lg shadow-lg z-50">
               <button
                 onClick={handleLogout}
-                className="w-full text-left px-4 py-2 text-sm text-red-600 font-semibold hover:bg-red-50 rounded-md transition-colors"
+                className="w-full min-h-11 text-left px-4 py-2 text-sm text-red-600 font-semibold hover:bg-red-50 rounded-md transition-colors"
               >
                 Cerrar Sesión
               </button>
             </div>
-          </div>
+          </details>
         </div>
       </div>
     </header>

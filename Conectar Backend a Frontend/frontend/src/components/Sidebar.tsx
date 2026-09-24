@@ -56,14 +56,14 @@ const Sidebar = ({ isCollapsed, isMobileOpen, closeMobileMenu }: SidebarProps) =
   return (
     <aside
       className={`
-        fixed inset-y-0 left-0 z-50 transform bg-red-900 text-white flex flex-col transition-all duration-300 ease-in-out
+        fixed inset-y-0 left-0 z-50 transform bg-sky-400 text-white flex flex-col transition-all duration-300 ease-in-out
         ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
         w-64
         md:relative md:translate-x-0
         ${isCollapsed ? "md:w-20" : "md:w-64"}
       `}
     >
-      <div className={`p-4 md:p-6 text-xl font-bold border-b border-slate-700 flex items-center ${isCollapsed ? 'md:justify-center' : 'justify-start'} whitespace-nowrap`}>
+      <div className={`p-4 md:p-6 text-xl font-bold border-b border-sky-500 flex items-center ${isCollapsed ? 'md:justify-center' : 'justify-start'} whitespace-nowrap`}>
         <span className="md:hidden">MultiCatálogo</span>
         <span className="hidden md:inline">{isCollapsed ? "MC" : "MultiCatálogo"}</span>
       </div>
@@ -84,7 +84,7 @@ const Sidebar = ({ isCollapsed, isMobileOpen, closeMobileMenu }: SidebarProps) =
               className={`flex items-center gap-3 p-3 rounded transition ${
                 esActivo
                   ? "bg-indigo-600 text-white"
-                  : "hover:bg-slate-800"
+                  : "hover:bg-sky-500"
               } ${isCollapsed ? 'md:justify-center' : ''}`}
               title={item.title}
             >
@@ -99,7 +99,7 @@ const Sidebar = ({ isCollapsed, isMobileOpen, closeMobileMenu }: SidebarProps) =
         })}
       </nav>
 
-      <div className="p-3 border-t border-slate-700 text-xs text-slate-300">
+      <div className="p-3 border-t border-sky-500 text-xs text-slate-100">
         {isCollapsed ? (
           <p className="text-center uppercase">{user?.rol}</p>
         ) : (
