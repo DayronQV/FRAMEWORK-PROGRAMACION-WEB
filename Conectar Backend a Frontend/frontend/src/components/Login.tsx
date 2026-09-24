@@ -1,47 +1,56 @@
 // src/components/Login.tsx
-import { useState, type FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useState, type FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth, type Rol } from "../context/AuthContext";
 
 const Login = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError('');
+    setLoading(true);
 
-    try {
-      const response = await fetch('http://localhost:3000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+    // Consumo de API RESTful usando promesas (Tema 4)
+    fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Credenciales incorrectas");
+        return response.json();
+      })
+      .then((data) => {
+        setError("");
+        // La API devuelve el rol (admin | cliente) junto al correo (Tema 5)
+        const rol: Rol = data.rol === "admin" ? "admin" : "cliente";
+        login({ email: data.email, rol });
+
+        // Redirigimos según el rol: admin al Dashboard, cliente a la Tienda
+        navigate(rol === "admin" ? "/" : "/tienda");
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-
-      const data: { email?: string; error?: string } = await response.json();
-
-      if (!response.ok) {
-        setError(data.error ?? 'No se pudo iniciar sesión');
-        return;
-      }
-
-      login(data.email ?? email);
-      navigate('/');
-    } catch {
-      setError('No se pudo conectar con el servidor');
-    }
   };
 
   return (
-    <div className="min-h-dvh flex items-center justify-center bg-slate-100 px-4 py-6">
-      <div className="max-w-md w-full bg-white rounded-xl shadow-md p-5 sm:p-8 border border-slate-200">
+    <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4">
+      <div className="max-w-md w-full bg-white rounded-xl shadow-md p-8 border border-slate-200">
         <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">MultiCatálogo</h2>
-          <p className="text-slate-500 mt-2">Ingresa a tu cuenta para continuar</p>
+          <h2 className="text-3xl font-bold text-slate-900">MultiCatálogo</h2>
+          <p className="text-slate-500 mt-2">
+            Ingresa a tu cuenta para continuar
+          </p>
         </div>
 
         {error && (
@@ -52,10 +61,10 @@ const Login = () => {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">Correo Electrónico</label>
+            <label className="block text-sm font-medium text-slate-700 mb-2">
+              Correo Electrónico
+            </label>
             <input
-              id="email"
-              autoComplete="username"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -66,10 +75,10 @@ const Login = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-2">Contraseña</label>
+            <label className="block text-sm font-medium text-slate-700 mb-2">
+              Contraseña
+            </label>
             <input
-              id="password"
-              autoComplete="current-password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -81,11 +90,18 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition"
+            disabled={loading}
+            className="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Iniciar Sesión
+            {loading ? "Validando..." : "Iniciar Sesión"}
           </button>
         </form>
+
+        <div className="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-600 space-y-1">
+          <p className="font-semibold text-slate-700">Cuentas de prueba:</p>
+          <p>👑 Admin: <span className="font-mono">admin@upse.edu.ec / 123456</span></p>
+          <p>🛍️ Cliente: <span className="font-mono">cliente@upse.edu.ec / 123456</span></p>
+        </div>
       </div>
     </div>
   );
