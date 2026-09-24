@@ -84,7 +84,7 @@ const MiRed = () => {
       </div>
 
       {/* ===== ÁRBOL DE REFERIDOS ===== */}
-      <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-6">
+      <div className="max-w-full overflow-x-auto bg-white rounded-lg border border-slate-200 shadow-sm p-6">
         <h2 className="text-lg font-bold text-slate-800 mb-4">Jerarquía de tu Red</h2>
 
         {/* Raíz: el usuario */}

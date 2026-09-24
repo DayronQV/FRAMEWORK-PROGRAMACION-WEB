@@ -45,7 +45,7 @@ const Confirmacion = () => {
         </div>
 
         <div className="p-8">
-          <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 text-sm">
             <div>
               <p className="text-slate-500">Cliente</p>
               <p className="font-semibold text-slate-800">{pedido.cliente.nombre}</p>
@@ -84,16 +84,16 @@ const Confirmacion = () => {
             </span>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex flex-col gap-3 sm:flex-row">
             <Link
               to="/tienda"
-              className="flex-1 text-center bg-indigo-600 text-white font-semibold py-3 rounded-lg hover:bg-indigo-700 transition"
+              className="w-full sm:flex-1 text-center bg-indigo-600 text-white font-semibold py-3 rounded-lg hover:bg-indigo-700 transition"
             >
               Seguir Comprando
             </Link>
             <Link
               to="/catalogo"
-              className="flex-1 text-center border border-slate-300 text-slate-700 font-semibold py-3 rounded-lg hover:bg-slate-50 transition"
+              className="w-full sm:flex-1 text-center border border-slate-300 text-slate-700 font-semibold py-3 rounded-lg hover:bg-slate-50 transition"
             >
               Ver Catálogo
             </Link>

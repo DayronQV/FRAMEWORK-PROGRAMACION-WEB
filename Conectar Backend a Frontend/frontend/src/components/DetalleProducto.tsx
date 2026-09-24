@@ -95,12 +95,12 @@ const DetalleProducto = () => {
             onClick={() => setLightboxAbierto(true)}
             className="w-full h-80 md:h-96 object-cover rounded-xl border border-slate-200 cursor-zoom-in"
           />
-          <div className="flex gap-3 mt-4">
+          <div className="mt-4 flex max-w-full gap-3 overflow-x-auto pb-2">
             {imagenes.map((img, idx) => (
               <button
                 key={img}
                 onClick={() => setImagenActiva(idx)}
-                className={`rounded-lg overflow-hidden border-2 transition ${idx === imagenActiva
+                className={`shrink-0 rounded-lg overflow-hidden border-2 transition ${idx === imagenActiva
                     ? "border-indigo-600"
                     : "border-transparent opacity-70 hover:opacity-100"
                   }`}

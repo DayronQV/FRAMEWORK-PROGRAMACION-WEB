@@ -35,9 +35,9 @@ const Carrito = () => {
             {cart.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between bg-white p-4 rounded-lg border border-slate-200 shadow-sm gap-4"
+                className="flex flex-col gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-sm sm:flex-row sm:items-center sm:justify-between"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex min-w-0 items-center gap-4">
                   <img
                     src={item.img}
                     alt={item.nombre}
@@ -45,7 +45,7 @@ const Carrito = () => {
                   />
                   <div>
                     <Link to={`/producto/${item.id}`}>
-                      <h3 className="font-semibold text-slate-800 hover:text-indigo-600 transition">
+                      <h3 className="break-words font-semibold text-slate-800 hover:text-indigo-600 transition">
                         {item.nombre}
                       </h3>
                     </Link>
@@ -53,7 +53,7 @@ const Carrito = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4">
+                <div className="flex w-full items-center justify-between gap-3 sm:w-auto sm:justify-end">
                   {/* Control de cantidad */}
                   <div className="flex items-center border border-slate-200 rounded-lg overflow-hidden">
                     <button
@@ -75,7 +75,7 @@ const Carrito = () => {
                     </button>
                   </div>
 
-                  <p className="font-bold text-indigo-600 w-20 text-right">
+                  <p className="w-auto font-bold text-indigo-600 text-right">
                     ${(item.precio * item.cantidad).toFixed(2)}
                   </p>
 
