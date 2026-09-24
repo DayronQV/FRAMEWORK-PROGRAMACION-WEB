@@ -39,11 +39,15 @@ const Layout = () => {
           className="fixed inset-0 z-30 bg-slate-950/40 lg:hidden"
         />
       )}
-      <Sidebar isCollapsed={isCollapsed} onNavigate={closeMobileSidebar} />
+      <Sidebar
+        isCollapsed={isCollapsed}
+        isMobileOpen={!isCollapsed}
+        closeMobileMenu={closeMobileSidebar}
+      />
 
       {/* Área de Contenido Principal */}
       <div className="min-w-0 flex-1 flex flex-col overflow-hidden">
-        <Navbar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
+        <Navbar toggleSidebar={toggleSidebar} />
 
         <main className="min-h-0 flex-1 overflow-y-auto p-3 sm:p-5 lg:p-8">
           <Outlet />
